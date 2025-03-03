@@ -10,7 +10,7 @@ colnames(sawmill_two) <- str_replace(string = colnames(sawmill_two),pattern = "1
 sawmill_two <-   clean_names(sawmill_two)
 
 ###############
-# FORMAT sawmill
+# FORMAT SAWMILL 2
 ###############
 
 #Important Note: The May/June survey(s?) in sawmill 2 do NOT have a notes section
@@ -48,5 +48,6 @@ colnames(sawmill_2ndmayjun15two) <- str_remove(string = colnames(sawmill_mayjun1
 
 #Unified sawmill 2014+2015 two (excluding 2nd mayjun2015)
 unified_sawmill_two_exclude <- bind_rows(sawmill_Feb14two,sawmill_mayjun14two,sawmill_Feb15two,sawmill_mayjun15two)
+unified_sawmill_two_exclude$first_flower <- as.character(unified_sawmill_two_exclude$first_flower)
 #Unified sawmill 2014+2015 two (including 2nd mayjun2015)
-unified_sawmill_two_include <- bind_rows(sawmill_Feb14two,sawmill_mayjun14two,sawmill_Feb15two,sawmill_mayjun15two,sawmill_2ndmayjun15two)
+unified_sawmill_two <- bind_rows(unified_sawmill_two_exclude,sawmill_2ndmayjun15two)
