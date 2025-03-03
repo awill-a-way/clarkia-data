@@ -40,4 +40,4 @@ bodfish_mayjun15two <-bodfish_two|>
 colnames(bodfish_mayjun15two) <- str_remove(string = colnames(bodfish_mayjun15two), "_\\d.")
 
 #Unified bodfish 2014+2015 two
-bind_rows(bodfish_Feb14two,bodfish_mayjun14two,bodfish_Feb15two,bodfish_mayjun15two)
+unified_bodfish_two<-bind_rows(bodfish_Feb14two,bodfish_mayjun14two,bodfish_Feb15two,bodfish_mayjun15two)

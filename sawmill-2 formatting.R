@@ -13,6 +13,7 @@ sawmill_two <-   clean_names(sawmill_two)
 # FORMAT sawmill
 ###############
 
+#Important Note: The May/June survey(s?) in sawmill 2 do NOT have a notes section
 
 #feb 2014 two
 sawmill_Feb14two <-sawmill_two|>
@@ -20,24 +21,32 @@ sawmill_Feb14two <-sawmill_two|>
   mutate(year = 2014,
          month = "feb")
 colnames(sawmill_Feb14two) <- str_remove(string = colnames(sawmill_Feb14two), "_\\d.")
-#mayjun 2014 two (note that 17:25 is uncertain)
+#mayjun 2014 two
 sawmill_mayjun14two <-sawmill_two|>
-  select(c(1:10, 17:25))|>
+  select(c(1:10, 17:24))|>
   mutate(year = 2014,
          month = "mayjun")
 colnames(sawmill_mayjun14two) <- str_remove(string = colnames(sawmill_mayjun14two), "_\\d.")
 #feb 2015 two
 sawmill_Feb15two <-sawmill_two|>
-  select(c(1:10, 26:31))|>
+  select(c(1:10, 25:30))|>
   mutate(year = 2015,
          month = "feb")
 colnames(sawmill_Feb15two) <- str_remove(string = colnames(sawmill_Feb15two), "_\\d.")
 #mayjun 2015 two
 sawmill_mayjun15two <-sawmill_two|>
-  select(c(1:10, 32:40))|>
+  select(c(1:10, 31:39))|>
   mutate(year = 2015,
          month = "mayjun")
 colnames(sawmill_mayjun15two) <- str_remove(string = colnames(sawmill_mayjun15two), "_\\d.")
+#idk why but there's a SECOND mayjune 2015 survey in sawmill 2
+sawmill_2ndmayjun15two <-sawmill_two|>
+  select(c(1:10, 40:48))|>
+  mutate(year = 2015,
+         month = "mayjun")
+colnames(sawmill_2ndmayjun15two) <- str_remove(string = colnames(sawmill_mayjun15two), "_\\d.")
 
-#Unified sawmill 2014+2015 two
-bind_rows(sawmill_Feb14two,sawmill_mayjun14two,sawmill_Feb15two,sawmill_mayjun15two)
+#Unified sawmill 2014+2015 two (excluding 2nd mayjun2015)
+unified_sawmill_two_exclude <- bind_rows(sawmill_Feb14two,sawmill_mayjun14two,sawmill_Feb15two,sawmill_mayjun15two)
+#Unified sawmill 2014+2015 two (including 2nd mayjun2015)
+unified_sawmill_two_include <- bind_rows(sawmill_Feb14two,sawmill_mayjun14two,sawmill_Feb15two,sawmill_mayjun15two,sawmill_2ndmayjun15two)
