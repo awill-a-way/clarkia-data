@@ -4,7 +4,7 @@ library(janitor)
 library(readxl)
 library(stringr)
 
-# LOAD BODFISH DATA 2
+# LOAD BODFISH DATA 2 (otherwise known as bodfish 2013)
 bodfish_two <- read_xlsx("Ziploc Experiment Field Data Sheets_ Bodfish_2013.xlsx",skip =1)
 colnames(bodfish_two) <- str_replace(string = colnames(bodfish_two),pattern = "1st", replacement =  "first" )
 bodfish_two <-   clean_names(bodfish_two)
@@ -41,3 +41,4 @@ colnames(bodfish_mayjun15two) <- str_remove(string = colnames(bodfish_mayjun15tw
 
 #Unified bodfish 2014+2015 two
 unified_bodfish_two<-bind_rows(bodfish_Feb14two,bodfish_mayjun14two,bodfish_Feb15two,bodfish_mayjun15two)
+#note that, for bodfish two (meaning 2013), "first flower" has a date AND description of the flower
