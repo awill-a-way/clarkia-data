@@ -9,3 +9,6 @@ bind_row(uni)
 #
 ggplot(unified_clarkia, aes(x=germ))+
   geom_bar()
+#
+ggplot(unified_bodfish_two, aes(x=germ))+
+  geom_bar()
