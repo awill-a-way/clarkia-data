@@ -57,4 +57,4 @@ site22_MayJun15 <- site22_original|>
          month = "mayjun")
 colnames(site22_MayJun15) <- str_remove(string = colnames(site22_MayJun15), "_\\d." )
 #Unified site22-1 data
-unified_site22_one <- bind_rows(site22_Feb12, site22_Feb13, site22_Mar13, site22_MayJun13, site22_MayJun14, site22_Feb15, site22_MayJun15)
+unified_site22 <- bind_rows(site22_Feb12, site22_Feb13, site22_Mar13, site22_MayJun13, site22_MayJun14, site22_Feb15, site22_MayJun15)
