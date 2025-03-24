@@ -41,4 +41,5 @@ colnames(bodfish_mayjun15two) <- str_remove(string = colnames(bodfish_mayjun15tw
 
 #Unified bodfish 2014+2015 two
 unified_bodfish_two<-bind_rows(bodfish_Feb14two,bodfish_mayjun14two,bodfish_Feb15two,bodfish_mayjun15two)
+unified_bodfish_two$row <- as.double(unified_bodfish_two$row)
 #note that, for bodfish two (meaning 2013), "first flower" has a date AND description of the flower
