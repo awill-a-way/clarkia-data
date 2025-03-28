@@ -1,12 +1,15 @@
 library(readr)
 library(dplyr)
+library(lubridate)
 library(ggplot2)
-#unify the datasets (i need to come back and add site22_2 when im done with it)
+library(plotly)
+#unify the datasets (i need to come back and add site22 and site22_two when im done with it)
 str(unified_bodfish)
 str(unified_bodfish_two)
 str(unified_sawmill)
 str(unified_sawmill_two)
-unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two)
+unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two) |>
+  mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
 #
 ggplot(unified_clarkia, aes(x=number_germ))+
   geom_bar()
@@ -14,15 +17,26 @@ ggplot(unified_clarkia, aes(x=number_germ))+
 ggplot(unified_clarkia, aes(x=genotype_number, y=number_germ))+
   geom_col()
 #
-ggplot(
+plot1 <- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ)) # Correct filter placement
 ) +
-  aes(x = number_germ, fill = as.factor(year)) +  # Aesthetics should be inside ggplot()
+  aes(x = number_germ, fill = month) +  # Aesthetics should be inside ggplot()
   geom_bar() +  # Use geom_bar() if number_germ is count data
-  facet_grid(month ~ year) +  # Correct facet syntax
+  facet_wrap( ~ year) +  # Correct facet syntaxhttp://127.0.0.1:47729/graphics/b840e4e2-0b9f-4b47-b596-7bac4a8a9e59.png
   theme_light() +
-  scale_fill_manual(values = c("blue", "red", "green")) # Example for fill customization
+  scale_fill_manual(values = c("blue", "red")) # Example for fill customization
+#
+ggplot(
+  unified_clarkia   |>
+    mutate(year_planted = year(date_planted))|> 
+    filter(!is.na(number_germ))
+) +
+  aes(x = number_germ, fill = month) +
+  geom_bar() +
+  facet_grid(year_planted ~ year, labeller = "label_both")
+  theme_light() +
+  scale_fill_manual(values = c("blue", "red"))
 #
 ggplot(
   unified_clarkia |> 
@@ -35,4 +49,21 @@ ggplot(
   labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
 #
-boxplot(unified_clarkia$number_germ)
+plot_rainbow <- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_germ)),
+  aes(x = as.factor(genotype_number), y = number_germ, fill = as.factor(genotype_number), label=crosstype)) +  
+  geom_col() +  
+  facet_grid(as.factor(month) ~ as.factor(year)) +  # Separate plots by month and year
+  theme_light() + 
+  labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")  # Rotate x-axis labels for readability
+#
+ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_germ)),
+  aes(x = as.factor(number_germ))) +
+  geom_bar()+
+  facet_wrap(~ as.factor(crosstype)) +
+  theme_light() +
+  labs(x = "Number Germ")
