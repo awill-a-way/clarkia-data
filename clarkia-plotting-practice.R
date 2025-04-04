@@ -59,7 +59,7 @@ plot_rainbow <- ggplot(
   labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")  # Rotate x-axis labels for readability
 #
-ggplot(
+bar_germ1<- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ)),
   aes(x = as.factor(number_germ))) +
@@ -67,3 +67,26 @@ ggplot(
   facet_wrap(~ as.factor(crosstype)) +
   theme_light() +
   labs(x = "Number Germ")
+bar_germ1 <- plot_ly()
+#
+bar_germ2 <- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_germ)),
+  aes(x = as.factor(month), fill = as.factor(crosstype))
+) +
+  geom_bar(stat = "count") +
+  facet_wrap(~ crosstype) +
+  theme_light() +
+  labs(y = "Number Germ", x = "Month") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+bar_germ2
+#Note that, for "number survived", data was ONLY collected for March 2013
+bar_surv1<- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_surv)),
+  aes(x = as.factor(number_surv))) +
+  geom_bar()+
+  facet_wrap(~ as.factor(crosstype)) +
+  theme_light() +
+  labs(x = "Number Survived")
+#
