@@ -36,7 +36,7 @@ bodfish_Mar13 <- bodfish_Mar13 |>
 bodfish_Mayjun13 <- bodfish_original|>
   select(c(1:11,26:42))|>
   mutate(year = 2013,
-         month = "may-jun")
+         month = "mayjun")
 colnames(bodfish_Mayjun13) <- str_remove(string = colnames(bodfish_Mayjun13), "_\\d." )
 
 
@@ -54,7 +54,7 @@ colnames(bodfish_Feb14) <- str_remove(string = colnames(bodfish_Feb14), "_\\d.")
 bodfish_Mayjun14 <-bodfish_original|>
   select(c(1:11, 65:72))|>
   mutate(year = 2014,
-         month = "Mayjun")
+         month = "mayjun")
 colnames(bodfish_Mayjun14) <- str_remove(string = colnames(bodfish_Mayjun14), "_\\d.")
 
 bodfish_Mar13 |> pull(number_lvs)|> table()

@@ -36,7 +36,7 @@ sawmill_Mar13 <- sawmill_Mar13 |>
 sawmill_Mayjun13 <- sawmill_original|>
   select(c(1:11,26:42))|>
   mutate(year = 2013,
-         month = "may-jun")
+         month = "mayjun")
 colnames(sawmill_Mayjun13) <- str_remove(string = colnames(sawmill_Mayjun13), "_\\d." )
 
 
@@ -54,7 +54,7 @@ colnames(sawmill_Feb14) <- str_remove(string = colnames(sawmill_Feb14), "_\\d.")
 sawmill_Mayjun14 <-sawmill_original|>
   select(c(1:11, 65:72))|>
   mutate(year = 2014,
-         month = "Mayjun")
+         month = "mayjun")
 colnames(sawmill_Mayjun14) <- str_remove(string = colnames(sawmill_Mayjun14), "_\\d.")
 # UNIFIED sawmill 2013 observations
 bind_rows(sawmill_Feb13, sawmill_Mar13,sawmill_Mayjun13, sawmill_Feb14)
@@ -68,7 +68,7 @@ colnames(sawmill_Feb14) <- str_remove(string = colnames(sawmill_Feb14), "_\\d.")
 sawmill_Mayjun14 <-sawmill_original|>
   select(c(1:11, 65:72))|>
   mutate(year = 2014,
-         month = "Mayjun")
+         month = "mayjun")
 colnames(sawmill_Mayjun14) <- str_remove(string = colnames(sawmill_Mayjun14), "_\\d.")
 
 
