@@ -62,6 +62,5 @@ bodfish_Mar13 |> pull(number_lvs)|> table()
 
 #unified bodfish
 unified_bodfish<- bind_rows(bodfish_Feb13,bodfish_Mar13,bodfish_Mayjun13,bodfish_Feb14,bodfish_Mayjun14)
-
 #se <- function(X){sd(X)/ sqrt(length(X))}
 #se(1:10)

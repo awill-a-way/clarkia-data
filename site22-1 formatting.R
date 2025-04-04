@@ -19,7 +19,7 @@ site22_Feb12 <- site22_original|>
   mutate(year = 2012,
          month = "feb")
 colnames(site22_Feb12) <- str_remove(string = colnames(site22_Feb12), "_\\d." )
-site22_Feb12$date <- as.double(site22_Feb12$date) #this command is explained and repeated before unifying
+#site22_Feb12$date <- as.double(site22_Feb12$date) #this command is explained and repeated before unifying
 #Feb13
 site22_Feb13 <- site22_original|>
   select(1:11, 18:23)|>
@@ -99,3 +99,21 @@ site22_Feb15 <- site22_Feb15 %>% mutate(date = NULL)
 site22_MayJun15 <- site22_MayJun15 %>% mutate(date = NULL)
 #Unified site22-1 data
 unified_site22 <- bind_rows(site22_Feb12, site22_Feb13, site22_Mar13, site22_MayJun13, site22_MayJun14, site22_Feb15, site22_MayJun15)
+
+
+
+str(site22_Feb12)
+str(site22_Feb12)
+  
+  2,typeof),
+apply(site22_Feb13,2,typeof))
+apply(site22_Mar13,2,class),
+apply(site22_MayJun13,2,class),
+apply(site22_MayJun14,2,class),
+apply(site22_Feb15,2,class),
+apply(site22_MayJun15,2,class))
+  
+
+
+
+

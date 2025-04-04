@@ -8,7 +8,7 @@ str(unified_bodfish)
 str(unified_bodfish_two)
 str(unified_sawmill)
 str(unified_sawmill_two)
-unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two) |>
+unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two, unified) |>
   mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
 #
 ggplot(unified_clarkia, aes(x=number_germ))+
@@ -66,12 +66,13 @@ bar_germ1<- ggplot(
   geom_bar()+
   facet_wrap(~ as.factor(crosstype)) +
   theme_light() +
-  labs(x = "Number Germ")
+  labs(x = "Number Germ") |>
+  bar_germ1
 bar_germ1 <- plot_ly()
 #
 bar_germ2 <- ggplot(
   unified_clarkia |> 
-    filter(!is.na(number_germ)),
+    filter(!is.na(number_germ),!is.na(crosstype)),
   aes(x = as.factor(month), fill = as.factor(crosstype))
 ) +
   geom_bar(stat = "count") +
@@ -79,7 +80,52 @@ bar_germ2 <- ggplot(
   theme_light() +
   labs(y = "Number Germ", x = "Month") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
-bar_germ2
+
+bar_germ3 <- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_germ),!is.na(crosstype))|>
+    mutate(year_month = paste(year, month))|>
+    group_by(crosstype)|>
+    mutate(tot_germ = sum(number_germ,na.rm=TRUE))|>
+    ungroup()|>
+    filter(tot_germ>50),
+  aes(x = as.factor(year_month), fill = as.factor(crosstype))
+) +
+  geom_bar(stat = "count") +
+  facet_wrap(~ crosstype,ncol = 1, strip.position = "right") +
+  theme_light() +
+  labs(y = "Number Germ", x = "Month") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+#
+bar_germ3 <- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_germ),!is.na(crosstype))|>
+    mutate(year_month = paste(year, month))|>
+    group_by(crosstype)|>
+    mutate(tot_germ = sum(number_germ,na.rm=TRUE))|>
+    ungroup()|>
+    filter(tot_germ>50),
+  aes(x = as.factor(year_month), fill = as.factor(crosstype))
+) +
+  geom_bar(stat = "count") +
+  facet_wrap(~ crosstype,ncol = 1, strip.position = "right") +
+  theme_light() +
+  labs(y = "Number Germ", x = "Month") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+#
+bar_germ4 <- ggplot(unified_clarkia |> 
+  filter(!is.na(number_germ),!is.na(crosstype))|>
+  mutate(year_month = paste(year, month))|>
+  group_by(crosstype)|>
+  mutate(tot_germ = sum(number_germ,na.rm=TRUE))|>
+  ungroup()|>
+  filter(tot_germ>50),
+aes(x = as.factor(crosstype), fill = as.factor(year_month))) +
+  geom_bar(stat = "count") +
+  facet_wrap(~ year_month,ncol = 1, strip.position = "right") +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+#
 #Note that, for "number survived", data was ONLY collected for March 2013
 bar_surv1<- ggplot(
   unified_clarkia |> 
