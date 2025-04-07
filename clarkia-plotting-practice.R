@@ -48,7 +48,16 @@ ggplot(
   theme_light() +
   labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
-#
+#Note that, for "number survived", data was ONLY collected for March 2013
+bar_surv1<- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_surv)),
+  aes(x = as.factor(number_surv))) +
+  geom_bar()+
+  facet_wrap(~ as.factor(crosstype)) +
+  theme_light() +
+  labs(x = "Number Survived")
+#weird rainbow plot
 plot_rainbow <- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ)),
@@ -58,7 +67,7 @@ plot_rainbow <- ggplot(
   theme_light() + 
   labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")  # Rotate x-axis labels for readability
-#
+#germination 1
 bar_germ1<- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ)),
@@ -69,7 +78,7 @@ bar_germ1<- ggplot(
   labs(x = "Number Germ") |>
   bar_germ1
 bar_germ1 <- plot_ly()
-#
+#germination 2
 bar_germ2 <- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ),!is.na(crosstype)),
@@ -80,7 +89,7 @@ bar_germ2 <- ggplot(
   theme_light() +
   labs(y = "Number Germ", x = "Month") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
-
+#germination 3
 bar_germ3 <- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ),!is.na(crosstype))|>
@@ -96,8 +105,8 @@ bar_germ3 <- ggplot(
   theme_light() +
   labs(y = "Number Germ", x = "Month") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
-#
-bar_germ3 <- ggplot(
+#germination 3 WITH TOTAL GERM
+bar_germ3.5 <- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_germ),!is.na(crosstype))|>
     mutate(year_month = paste(year, month))|>
@@ -125,14 +134,4 @@ aes(x = as.factor(crosstype), fill = as.factor(year_month))) +
   facet_wrap(~ year_month,ncol = 1, strip.position = "right") +
   theme_light() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
-#
-#Note that, for "number survived", data was ONLY collected for March 2013
-bar_surv1<- ggplot(
-  unified_clarkia |> 
-    filter(!is.na(number_surv)),
-  aes(x = as.factor(number_surv))) +
-  geom_bar()+
-  facet_wrap(~ as.factor(crosstype)) +
-  theme_light() +
-  labs(x = "Number Survived")
 #
