@@ -8,7 +8,12 @@ str(unified_bodfish)
 str(unified_bodfish_two)
 str(unified_sawmill)
 str(unified_sawmill_two)
-unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two, unified) |>
+str(unified_site22)
+unified_clarkia_exclude22<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two) |>
+  mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
+str(unified_clarkia_exclude22)
+#
+unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two, unified_site22) |>
   mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
 #
 ggplot(unified_clarkia, aes(x=number_germ))+
