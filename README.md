@@ -11,3 +11,12 @@ return(x)
 
 add2(1)
 #
+#moved notes from site22-1 here
+#Unified below isn't working so we need to check which dates aren't the same
+typeof(site22_Feb12$date) #was logical
+typeof(site22_Feb13$date) #double
+typeof(site22_Mar13$date) #double
+typeof(site22_MayJun13$date) #Was "Warning message: Unknown or uninitialised column: `date`." Now logical
+typeof(site22_MayJun14$date) #Was "Warning message: Unknown or uninitialised column: `date`." Now logical
+typeof(site22_Feb15$date) #double
+typeof(site22_MayJun15$date) #Was "Warning message: Unknown or uninitialised column: `date`." Now logical

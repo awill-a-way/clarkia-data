@@ -29,8 +29,7 @@ sawmill_Mar13 <- sawmill_original|>
 colnames(sawmill_Mar13) <- str_remove(string = colnames(sawmill_Mar13), "_\\d." )
 
 sawmill_Mar13 <- sawmill_Mar13 |>
-  rename(number_germ = number_new_germ)|>
-  mutate(number_lvs = as.numeric(number_lvs))
+  mutate(number_lvs = as.numeric(number_lvs)) #I removed rename(number_germ = number_new_germ)
 
 # sawmill mayjun
 sawmill_Mayjun13 <- sawmill_original|>

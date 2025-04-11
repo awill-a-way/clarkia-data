@@ -29,9 +29,7 @@ bodfish_Mar13 <- bodfish_original|>
 colnames(bodfish_Mar13) <- str_remove(string = colnames(bodfish_Mar13), "_\\d." )
 
 bodfish_Mar13 <- bodfish_Mar13 |>
-  rename(number_germ = number_new_germ)|>
-  mutate(number_lvs = as.numeric(number_lvs))
-
+  mutate(number_lvs = as.numeric(number_lvs))#I removed rename(number_germ = number_new_germ) from here
 # bodfish mayjun
 bodfish_Mayjun13 <- bodfish_original|>
   select(c(1:11,26:42))|>

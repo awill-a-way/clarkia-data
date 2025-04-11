@@ -9,11 +9,15 @@ str(unified_bodfish_two)
 str(unified_sawmill)
 str(unified_sawmill_two)
 str(unified_site22)
+#unified clarkia without site 22 one & two
 unified_clarkia_exclude22<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two) |>
   mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
 str(unified_clarkia_exclude22)
-#
-unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two, unified_site22) |>
+#unified clarkia without site 22 two
+unified_clarkia_exclude22two<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two, unified_site22) |>
+  mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
+#complete unification
+unified_clarkia<-bind_rows(unified_bodfish, unified_bodfish_two, unified_sawmill, unified_sawmill_two, unified_site22, unified_site22_two) |>
   mutate(number_germ = ifelse(is.na(number_germ), 0, number_germ))
 #
 ggplot(unified_clarkia, aes(x=number_germ))+
@@ -53,7 +57,7 @@ ggplot(
   theme_light() +
   labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
-#Note that, for "number survived", data was ONLY collected for March 2013
+#Survival plot (I suspect most data came from site 22)
 bar_surv1<- ggplot(
   unified_clarkia |> 
     filter(!is.na(number_surv)),

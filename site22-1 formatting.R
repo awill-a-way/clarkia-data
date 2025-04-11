@@ -20,7 +20,6 @@ site22_Feb12 <- site22_original|>
          month = "feb")
 colnames(site22_Feb12) <- str_remove(string = colnames(site22_Feb12), "_\\d." )
 site22_Feb12 <-  clean_names(site22_Feb12)
-#site22_Feb12$date <- as.double(site22_Feb12$date) #this command is explained and repeated before unifying
 #Feb13
 site22_Feb13 <- site22_original|>
   select(1:11, 18:23)|>
@@ -67,14 +66,6 @@ site22_MayJun15 <- site22_original|>
 site22_MayJun15 <- site22_MayJun15 %>% mutate(date = NA_real_)
 colnames(site22_MayJun15) <- str_remove(string = colnames(site22_MayJun15), "_\\d." )
 site22_MayJun15 <- clean_names(site22_MayJun15)
-#Unified below isn't working so we need to check which dates aren't the same
-typeof(site22_Feb12$date) #was logical
-typeof(site22_Feb13$date) #double
-typeof(site22_Mar13$date) #double
-typeof(site22_MayJun13$date) #Was "Warning message: Unknown or uninitialised column: `date`." Now logical
-typeof(site22_MayJun14$date) #Was "Warning message: Unknown or uninitialised column: `date`." Now logical
-typeof(site22_Feb15$date) #double
-typeof(site22_MayJun15$date) #Was "Warning message: Unknown or uninitialised column: `date`." Now logical
 #creation of the fix22 function (originally was for JUST date but now also for number leaves, petal length, and petal width)
 fix22 <- function(x) {
   x$date <- as.double(x$date)
@@ -104,6 +95,12 @@ fix22 <- function(x) {
   }
   if(sum(colnames(x) == "first_flower") == 1) {
     x$first_flower <- as.character(x$first_flower)
+  }
+  if(sum(colnames(x) == "node_first_flower") == 1) {
+    x$node_first_flower <- as.double(x$node_first_flower)
+  }
+  if(sum(colnames(x) == "number_new_germ") == 1) {
+    x$number_new_germ <- as.double(x$number_new_germ)
   }
   return(x)
 }
