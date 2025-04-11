@@ -7,6 +7,7 @@ library(stringr)
 # LOAD sawmill DATA 2
 sawmill_two <- read_xlsx("Ziploc Experiment Field Data Sheets_ sawmill_2013.xlsx",skip =1)
 colnames(sawmill_two) <- str_replace(string = colnames(sawmill_two),pattern = "1st", replacement =  "first" )
+colnames(sawmill_two) <- str_replace(string = colnames(sawmill_two),pattern = "#", replacement =  "number" )
 sawmill_two <-   clean_names(sawmill_two)
 
 ###############

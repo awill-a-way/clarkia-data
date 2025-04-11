@@ -7,6 +7,7 @@ library(stringr)
 # LOAD SITE22 DATA 1
 site22_two <- read_xlsx("Ziploc Experiment Field Data Sheets_ Site 22_2013.xlsx",skip =1)
 colnames(site22_two) <- str_replace(string = colnames(site22_two),pattern = "1st", replacement =  "first" )
+colnames(site22_two) <- str_replace(string = colnames(site22_two),pattern = "#", replacement =  "number" )
 site22_two <-   clean_names(site22_two)
 
 ###############

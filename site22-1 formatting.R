@@ -7,6 +7,7 @@ library(stringr)
 # LOAD SITE22 DATA 1
 site22_original <- read_xlsx("Ziploc Experiment Field Data Sheets_ Site 22-1.xlsx",skip =1)
 colnames(site22_original) <- str_replace(string = colnames(site22_original),pattern = "1st", replacement =  "first" )
+colnames(site22_original) <- str_replace(string = colnames(site22_original),pattern = "#", replacement =  "number" )
 site22_original <-   clean_names(site22_original)
 
 ###############
@@ -102,6 +103,12 @@ fix22 <- function(x) {
   if(sum(colnames(x) == "number_new_germ") == 1) {
     x$number_new_germ <- as.double(x$number_new_germ)
   }
+  if(sum(colnames(x) == "number_surv") == 1) {
+    x$number_surv <- as.character(x$number_surv)
+  }
+  if(sum(colnames(x) == "number_surv") == 1) {
+    x$height_mm <- as.double(x$height_mm)
+  }
   return(x)
 }
 #Fixing each month/year for site22 for unifying
@@ -119,16 +126,5 @@ test3_unified_site22 <- bind_rows(site22_MayJun13, site22_MayJun14) #FIXED
 #Unified site22-1 data (removing date for later complete unification)
 unified_site22 <- bind_rows(site22_Feb12, site22_Feb13, site22_Mar13, site22_MayJun13, site22_MayJun14, site22_Feb15, site22_MayJun15)
   unified_site22 <- unified_site22 %>% select(-date)
-#
-
-
-str(site22_Feb12)
-str(site22_Feb12)
   
-  2,typeof),
-apply(site22_Feb13,2,typeof))
-apply(site22_Mar13,2,class),
-apply(site22_MayJun13,2,class),
-apply(site22_MayJun14,2,class),
-apply(site22_Feb15,2,class),
-apply(site22_MayJun15,2,class))
+  

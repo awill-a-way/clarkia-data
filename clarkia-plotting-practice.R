@@ -43,9 +43,9 @@ ggplot(
 ) +
   aes(x = number_germ, fill = month) +
   geom_bar() +
-  facet_grid(year_planted ~ year, labeller = "label_both")
+  facet_grid(year_planted ~ year, labeller = "label_both") +
   theme_light() +
-  scale_fill_manual(values = c("blue", "red"))
+  scale_fill_manual(values = c("blue", "red", "green"))
 #
 ggplot(
   unified_clarkia |> 
@@ -57,15 +57,6 @@ ggplot(
   theme_light() +
   labs(x = "Genotype Number", y = "Number of Germ", fill = "Genotype") +  # Add labels
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
-#Survival plot (I suspect most data came from site 22)
-bar_surv1<- ggplot(
-  unified_clarkia |> 
-    filter(!is.na(number_surv)),
-  aes(x = as.factor(number_surv))) +
-  geom_bar()+
-  facet_wrap(~ as.factor(crosstype)) +
-  theme_light() +
-  labs(x = "Number Survived")
 #weird rainbow plot
 plot_rainbow <- ggplot(
   unified_clarkia |> 
@@ -143,4 +134,26 @@ aes(x = as.factor(crosstype), fill = as.factor(year_month))) +
   facet_wrap(~ year_month,ncol = 1, strip.position = "right") +
   theme_light() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+#Survival plot (I suspect most data came from site 22)
+bar_surv1<- ggplot(
+  unified_clarkia |> 
+    filter(!is.na(number_surv)),
+  aes(x = as.factor(number_surv))) +
+  geom_bar()+
+  facet_wrap(~ as.factor(crosstype)) +
+  theme_light() +
+  labs(x = "Number Survived")
 #
+bar_surv2 <- unified_clarkia |> 
+  filter(!is.na(number_surv),!is.na(crosstype))|>
+  mutate(year_month = paste(year, month),
+         number_surv = as.numeric(number_surv))|>
+  group_by(crosstype)|>
+  mutate(tot_surv = sum(number_surv,na.rm=TRUE))|>
+  ungroup()|>
+  filter(tot_surv>50)|>  
+  ggplot(aes(x = as.factor(crosstype), fill = as.factor(year_month))) +
+  geom_bar(stat = "count") +
+  facet_wrap(~ year_month,ncol = 1, strip.position = "right") +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")

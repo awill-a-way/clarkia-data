@@ -3,14 +3,15 @@
 #3/18 - Focus on making a graph and summary stats. next week, be able to point at patterns (specifically with germination)
 #barplots for germinants?
 #3/27 - Make plots of germination (bar plots wrapped by year planted and colored by type, FIX MAY JUN) and survival
-#4/9 function advice
+#4/9 function advice 
 add2 <- function(x){
 x <- x+2
 return(x)
 }
 
 add2(1)
-#
+##se <- function(X){sd(X)/ sqrt(length(X))}
+#se(1:10)
 #moved notes from site22-1 here
 #Unified below isn't working so we need to check which dates aren't the same
 typeof(site22_Feb12$date) #was logical

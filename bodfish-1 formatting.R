@@ -7,6 +7,7 @@ library(stringr)
 # LOAD BODFISH DATA 1
 bodfish_original <- read_xlsx("Ziploc Experiment Field Data Sheets_ Bodfish-1.xlsx",skip =1)
 colnames(bodfish_original) <- str_replace(string = colnames(bodfish_original),pattern = "1st", replacement =  "first" )
+colnames(bodfish_original) <- str_replace(string = colnames(bodfish_original),pattern = "#", replacement =  "number" )
 bodfish_original <-   clean_names(bodfish_original)|>
   rename(planting_notes = notes_11)
 
@@ -30,18 +31,12 @@ colnames(bodfish_Mar13) <- str_remove(string = colnames(bodfish_Mar13), "_\\d." 
 
 bodfish_Mar13 <- bodfish_Mar13 |>
   mutate(number_lvs = as.numeric(number_lvs))#I removed rename(number_germ = number_new_germ) from here
-# bodfish mayjun
+#bodfish mayjun
 bodfish_Mayjun13 <- bodfish_original|>
   select(c(1:11,26:42))|>
   mutate(year = 2013,
          month = "mayjun")
 colnames(bodfish_Mayjun13) <- str_remove(string = colnames(bodfish_Mayjun13), "_\\d." )
-
-
-# UNIFIED BODFISH 2013 observstions
-bind_rows(bodfish_Feb13, bodfish_Mar13,bodfish_Mayjun13, bodfish_Feb14)
-
-
 #feb 2014 (by myself)
 bodfish_Feb14 <-bodfish_original|>
   select(c(1:11, 59:64))|>
@@ -54,11 +49,5 @@ bodfish_Mayjun14 <-bodfish_original|>
   mutate(year = 2014,
          month = "mayjun")
 colnames(bodfish_Mayjun14) <- str_remove(string = colnames(bodfish_Mayjun14), "_\\d.")
-
-bodfish_Mar13 |> pull(number_lvs)|> table()
-
-
 #unified bodfish
 unified_bodfish<- bind_rows(bodfish_Feb13,bodfish_Mar13,bodfish_Mayjun13,bodfish_Feb14,bodfish_Mayjun14)
-#se <- function(X){sd(X)/ sqrt(length(X))}
-#se(1:10)

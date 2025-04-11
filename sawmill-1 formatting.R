@@ -7,8 +7,8 @@ library(stringr)
 # LOAD SAWMILL DATA 1
 sawmill_original <- read_xlsx("Ziploc Experiment Field Data Sheets_ Sawmill-1.xlsx",skip =1)
 colnames(sawmill_original) <- str_replace(string = colnames(sawmill_original),pattern = "1st", replacement =  "first" )
-sawmill_original <-   clean_names(sawmill_original)|>
-  rename(planting_notes = notes_11)
+colnames(sawmill_original) <- str_replace(string = colnames(sawmill_original),pattern = "#", replacement =  "number" )
+sawmill_original <-   clean_names(sawmill_original) #removed planting notes 11??
 
 ###############
 # FORMAT SAWMILL
@@ -30,19 +30,12 @@ colnames(sawmill_Mar13) <- str_remove(string = colnames(sawmill_Mar13), "_\\d." 
 
 sawmill_Mar13 <- sawmill_Mar13 |>
   mutate(number_lvs = as.numeric(number_lvs)) #I removed rename(number_germ = number_new_germ)
-
 # sawmill mayjun
 sawmill_Mayjun13 <- sawmill_original|>
   select(c(1:11,26:42))|>
   mutate(year = 2013,
          month = "mayjun")
 colnames(sawmill_Mayjun13) <- str_remove(string = colnames(sawmill_Mayjun13), "_\\d." )
-
-
-# UNIFIED sawmill 2013 observstions
-bind_rows(sawmill_Feb13, sawmill_Mar13,sawmill_Mayjun13, sawmill_Feb14)
-
-
 #feb 2014
 sawmill_Feb14 <-sawmill_original|>
   select(c(1:11, 59:64))|>
@@ -55,8 +48,6 @@ sawmill_Mayjun14 <-sawmill_original|>
   mutate(year = 2014,
          month = "mayjun")
 colnames(sawmill_Mayjun14) <- str_remove(string = colnames(sawmill_Mayjun14), "_\\d.")
-# UNIFIED sawmill 2013 observations
-bind_rows(sawmill_Feb13, sawmill_Mar13,sawmill_Mayjun13, sawmill_Feb14)
 #feb 2014
 sawmill_Feb14 <-sawmill_original|>
   select(c(1:11, 59:64))|>
@@ -69,7 +60,5 @@ sawmill_Mayjun14 <-sawmill_original|>
   mutate(year = 2014,
          month = "mayjun")
 colnames(sawmill_Mayjun14) <- str_remove(string = colnames(sawmill_Mayjun14), "_\\d.")
-
-
 #totally unified sawmill
 unified_sawmill <- bind_rows(sawmill_Feb13,sawmill_Mar13,sawmill_Mayjun13,sawmill_Feb14,sawmill_Mayjun14)
